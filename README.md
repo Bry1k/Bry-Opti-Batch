@@ -25,4 +25,4 @@ These are multiple resources were used when making the script:
 * [valleyofdoom APPX Package Manager](https://github.com/valleyofdoom/AppxPackagesManager)
 * Amit - Powersaving Features
 * [Timecard](https://github.com/djdallmann/GamingPCSetup) - His research for PC configurations and setup
-* [Revision Community](revi.cc) - Learned quite a bit from the community
+* [Revision Community](https://revi.cc/) - Learned quite a bit from the community
