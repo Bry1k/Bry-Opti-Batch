@@ -239,17 +239,18 @@ Reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "
 
 
 :: Deleting Intel and AMD Microcode
-takeown /f "%WinDir%\System32\GameBarPresenceWriter.exe" /a  
-icacls "%WinDir%\System32\GameBarPresenceWriter.exe" /grant Administrators:(F) 
-ren "%WinDir%\System32\GameBarPresenceWriter.exe" "GameBarPresenceWriter32131dada.exe"
-takeown /f "%WinDir%\System32\backgroundTaskHost.exe" /a /r /d y
-ren "%WinDir%\System32\backgroundTaskHost.exe" "backgroundTaskHost2313dada.exe"
-takeown /f "%WinDir%\System32\mcupdate_AuthenticAMD.dll" /a
-icacls "%WinDir%\System32\mcupdate_AuthenticAMD.dll" /grant Administrators:(F)
-del "%WinDir%\System32\mcupdate_AuthenticAMD.dll" /s /f /q 
-takeown /f "%WinDir%\System32\mcupdate_GenuineIntel.dll" /a 
-icacls "%WinDir%\System32\mcupdate_GenuineIntel.dll" /grant Administrators:(F) 
-del "%WinDir%\System32\mcupdate_GenuineIntel.dll" /s /f /q
+:: Can cause BSOD on Windows 11 24H2
+:: takeown /f "%WinDir%\System32\GameBarPresenceWriter.exe" /a  
+:: icacls "%WinDir%\System32\GameBarPresenceWriter.exe" /grant Administrators:(F) 
+:: ren "%WinDir%\System32\GameBarPresenceWriter.exe" "GameBarPresenceWriter32131dada.exe"
+:: takeown /f "%WinDir%\System32\backgroundTaskHost.exe" /a /r /d y
+:: ren "%WinDir%\System32\backgroundTaskHost.exe" "backgroundTaskHost2313dada.exe"
+:: takeown /f "%WinDir%\System32\mcupdate_AuthenticAMD.dll" /a
+:: icacls "%WinDir%\System32\mcupdate_AuthenticAMD.dll" /grant Administrators:(F)
+:: del "%WinDir%\System32\mcupdate_AuthenticAMD.dll" /s /f /q 
+:: takeown /f "%WinDir%\System32\mcupdate_GenuineIntel.dll" /a 
+:: icacls "%WinDir%\System32\mcupdate_GenuineIntel.dll" /grant Administrators:(F) 
+:: del "%WinDir%\System32\mcupdate_GenuineIntel.dll" /s /f /q
 
 :: Notifications
 Reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications" /v "ToastEnabled" /t REG_DWORD /d "0" /f
