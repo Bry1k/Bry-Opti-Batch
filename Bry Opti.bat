@@ -225,15 +225,6 @@ sc stop dmwappushservice
 sc delete DiagTrack
 sc delete dmwappushservice
 
-:: Migitgations
-:: Don't know what I'm going to do with these value yet
-:: As they can cause problems with games dependent on this values such as Valorant
-:: powershell "ForEach($v in (Get-Command -Name \"Set-ProcessMitigation\").Parameters[\"Disable\"].Attributes.ValidValues){Set-ProcessMitigation -SYSTEM -Disable $v.ToString() -ErrorAction SilentlyContinue}" 
-:: for /f "tokens=3 skip=2" %%i in ('reg query "HKLM\System\CurrentControlSet\Control\Session Manager\kernel" /v "MitigationAuditOptions"') do set mitigation_mask=%%i
-:: for /l %%i in (0,1,9) do set mitigation_mask=!mitigation_mask:%%i=2!
-:: Reg add "HKLM\System\CurrentControlSet\Control\Session Manager\kernel" /v "MitigationOptions" /t REG_BINARY /d "!mitigation_mask!" /f 
-:: Reg add "HKLM\System\CurrentControlSet\Control\Session Manager\kernel" /v "MitigationAuditOptions" /t REG_BINARY /d "!mitigation_mask!" /f 
-
 :: Disable Transparency
 Reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "0" /f
 
