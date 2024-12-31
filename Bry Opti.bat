@@ -718,7 +718,6 @@ call "%UserProfile%\Documents\AppxPackagesManager.exe" >nul 2>&1
 takeown /f "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy" /r /a
 icacls "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy" /grant administrators:F /t
 ren "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy" Microsoft.Windows.Cortana_cw5n1h2txyewy.old
-pause
 
 goto :next
 
