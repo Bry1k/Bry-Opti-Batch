@@ -14,6 +14,11 @@ This script can tweak:
 
 You can check the full source of the script to see what it all changes and are welcome to customize to your liking.
 
+# How to use?
+- Go to [releases](https://github.com/Bry1k/Bry-Opti-Batch/releases)
+- Download the latest version
+- Extract the .7z file and run the script
+
 # More Information
 If you find issues within the script you can report or it in my [Discord](https://discord.gg/3TsdMw2xyW) or [here](https://github.com/Bry1k/Bry-Opti-Batch/issues). My discord is filled with info whether it comes to tweaking or learning. All are welcome.
 
