@@ -175,10 +175,8 @@ for %%a in (
   stisvc
   wisvc
   icssvc    
-  CompositeBus
-  NdisVirtualBus
 ) do (
-  call "resources\PowerRun.exe" /SW:0 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\%%a" /v "Start" /t REG_DWORD /d "4" /f
+  call "resources\PowerRun.exe" /SW:0 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\%%a" /v "Start" /t REG_DWORD /d "3" /f
 ) 
 cls
 
@@ -865,7 +863,7 @@ Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Manage
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
 
 cls
-set /P z=Do you want to enable FSE and disable GameBar? [Y/N]?
+set /P z=Disable GameBar? [Y/N]?
 if /I "%c%" EQU "Y" goto :FSE
 if /I "%c%" EQU "N" goto :noF
 
@@ -1026,7 +1024,6 @@ if exist "%ProgramFiles%\NVIDIA Corporation\Installer2\InstallerCore\NVI2.DLL" (
 
 :: BCDedits
 bcdedit /deletevalue useplatformclock
-bcdedit /set useplatformtick yes
 bcdedit /set disabledynamictick Yes
 
 
@@ -1035,7 +1032,6 @@ bcdedit /set disabledynamictick Yes
 for /f %%i in ('wmic path win32_networkadapter get GUID^| findstr "{"') do (
   Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpAckFrequency" /t REG_DWORD /d "1" /f
   Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
-  Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TCPNoDelay" /t REG_DWORD /d "1" /f 
 ) 
 
 
