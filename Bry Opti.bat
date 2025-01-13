@@ -19,6 +19,11 @@ cd /d "%~dp0"
 :: Changed title Screen
 :: Fixed typos
 
+::0.4
+:: Updated the code/Organized
+:: Made PowerShell function run easier
+:: Added OOSU10 Configuration to ehance privacy
+
 
 
 :: Run as Admin
@@ -148,13 +153,13 @@ echo Disabling Services
 for %%a in (
   AxInstSV
   tzautoupdates
+  BcastDVRUserService_389fd
+  DoSvc
   NaturalAuthentication
-  dmwappushservice
   MapsBroker
   lfsvc
   SharedAccess
   lltdsvc
-  PcaSvc
   CDPUserSvc
   NetTcpPortSharing
   CscService
@@ -172,6 +177,7 @@ for %%a in (
   UserDataSvc
   UevAgentService
   FrameServer
+  FrameServerMonitor
   stisvc
   wisvc
   icssvc    
@@ -211,7 +217,7 @@ Reg.exe add "HKEY_LOCAL_MACHINE\Software\Classes\.reg\ShellNew" /v "NullFile" /t
 
 :: Enable Dark Mode
 :: Do you?
-echo Enable Dark Dome
+echo Enable Dark Mode
 Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d "0" /f >nul 2>&1
 Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d "0" /f >nul 2>&1
 
@@ -232,10 +238,6 @@ echo Configuring Taskbar
 :: Disable Task View on Taskbar
 Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTaskViewButton" /t REG_DWORD /d "0" /f >nul 2>&1
 
-:: Hide Search Box on Taskbar
-Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d "0" /f >nul 2>&1
-
-Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds" /v "ShellFeedsTaskbarViewMode" /t REG_DWORD /d "2" /f >nul 2>&1
 
 :: Diagnostics and Privacy
 echo Further Enhancing Privacy 
@@ -283,8 +285,7 @@ echo Configuring Mouse
 Reg.exe add "HKCU\Control Panel\Mouse" /v "MouseHoverTime" /t REG_SZ /d "0" /f >nul 2>&1
 Reg.exe add "HKCU\Control Panel\Mouse" /v "MouseSensitivity" /t REG_SZ /d "10" /f >nul 2>&1
 Reg.exe add "HKCU\Control Panel\Mouse" /v "MouseSpeed" /t REG_SZ /d "0" /f >nul 2>&1
-Reg.exe add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "000000000000000000a0000000000000004001000000000000800200000000000000050000000000" /f >nul 2>&1
-Reg.exe add "HKCU\Control Panel\Mouse" /v "SmoothMouseYCurve" /t REG_BINARY /d "000000000000000066a6020000000000cd4c050000000000a0990a00000000003833150000000000" /f >nul 2>&1
+
 
 :: Location
 echo Disabling Location
@@ -314,7 +315,7 @@ Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\System
 
 ::Disable Memory Compression
 echo Disablinbg Memory Compression
-PowerShell "Disable-MMAgent -MemoryCompression" >nul 2>&1
+call :PS "Disable-MMAgent -MemoryCompression" 
 
 :: Windows Customer Improvement Program
 echo Disabling WCIP
@@ -443,15 +444,12 @@ for %%i in (
   EnhancedPowerManagementEnabled AllowIdleIrpInD3 EnableSelectiveSuspend DeviceSelectiveSuspended
 SelectiveSuspendEnabled SelectiveSuspendOn EnumerationRetryCount ExtPropDescSemaphore WaitWakeEnabled
 D3ColdSupported WdfDirectedPowerTransitionEnable EnableIdlePowerManagement IdleInWorkingState) do for /f %%a in ('Reg.exe query "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%i"^| findstr "HKEY"') do Reg.exe add "%%a" /v "%%i" /t REG_DWORD /d "0" /f 
-powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-:: Disable Selective Suspend
-powercfg /setacvalueindex scheme_current 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
-:: Sets USB 3 Link Power Management to off
-powercfg /setacvalueindex scheme_current 2a737441-1930-4402-8d77-b2bebba308a3 d4e98f31-5ffe-4ce1-be31-1b38b384c009 0
-Reg.exe add "HKLM\System\CurrentControlSet\Control\Power" /v "EnergyEstimationEnabled" /t REG_DWORD /d "0" /f 
-Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f 
-Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v "PowerThrottlingOff" /t REG_DWORD /d "1" /f
+call :DOWNLOAD "https://github.com/Bry1k/Bry-Opti-Batch/blob/main/resources/Bry1k.pow" "%temp%\Bry1k.pow"
+powercfg /import "%temp%\Bry1k.pow" 00000000-0000-0000-0000-000000000000
+powercfg /setactive 00000000-0000-0000-0000-000000000000
 powercfg /h off
+:: Disable Device Power Saving
+call :PS "Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi | ForEach-Object { $_.enable = $false; $_.psbase.put(); }"
 
 goto next
 
@@ -724,7 +722,6 @@ Reg.exe add "HKLM\SYSTEM\ControlSet\Services\ScDeviceEnum" /v "Start" /t REG_DWO
 Reg.exe add "HKLM\SYSTEM\ControlSet\Services\SCPolicySvc" /v "Start" /t REG_DWORD /d "4" /f
 Reg.exe add "HKLM\SYSTEM\ControlSet\Services\CertPropSvc" /v "Start" /t REG_DWORD /d "4" /f
 Echo.
-echo [101;41mSmart Cards has been disabled.[0m
 
 goto next
 
@@ -843,14 +840,35 @@ Reg.exe add "HKCU\SOFTWARE\Microsoft\OneDrive" /v "DisablePersonalSync" /t REG_D
 Reg.exe add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 Reg.exe add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 
-goto smp
+goto oosu
 
+:oosu
+cls
+echo [101;41mApply OOSU Configuration?:[0m
+echo Note: This enhances privacy inside of Windows
+echo Press "Y" to apply.
+echo Press "N" to skip.
+Echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto smp
+Echo.
+
+
+
+:apply
+call :DOWNLOAD "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" "%temp%\OOSU10.exe" >nul 2>&1
+start "" /wait "%temp%\OOSU10.exe" "C:\Users\Gamer\Documents\Bry-oosu10.cfg" /quiet
 
 :smp
 cls
-set /p choice=Do you want to disable Spectre and Meltdown protections? [Y/N]?
+echo [101;41mDo you want to disable Spectre and Meltdown protections?:[0m
+echo Press "Y" to apply.
+echo Press "N" to skip.
+set /p choice=[101;42mY / N:[0m  
 if /I "%choice%"=="Y" goto :Ys
 if /I "%choice%"=="N" goto :noM
+
 
 :Ys
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "EnableCfg" /t REG_DWORD /d "0" /f >nul 2>&1
@@ -863,7 +881,10 @@ Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Manage
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
 
 cls
-set /P z=Disable GameBar? [Y/N]?
+echo [101;41mDisable GameBar?:[0m
+echo Press "Y" to apply.
+echo Press "N" to skip.
+set /p choice=[101;42mY / N:[0m  
 if /I "%c%" EQU "Y" goto :FSE
 if /I "%c%" EQU "N" goto :noF
 
@@ -1081,6 +1102,9 @@ cscript /nologo "%TMP%\msgbox.vbs"
 set "exitCode=!ERRORLEVEL!" & del /f /q "%TMP%\msgbox.vbs" >nul 2>&1
 exit /b %exitCode%
 
+
+:PS
+powershell -nop -noni -exec bypass -c %* >nul 2>&1
 
 
 :: Very useful features that was/can be used.
