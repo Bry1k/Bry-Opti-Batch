@@ -203,6 +203,9 @@ for /f %%i in ('Reg.exequery "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Servic
 	Reg.exe add "%%i" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f >nul 2>&1
 )
 
+:: NVME and SATA DMA Remapping Disable
+Reg.exe add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\storahci\Parameters" /v DmaRemappingCompatible /t REG_DWORD /d 0 /f"
+Reg.exe add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\stornvme\Parameters" /v DmaRemappingCompatible /t REG_DWORD /d 0 /f
 
 :: add batch to new file menu
 :: More conveient, personally for me
