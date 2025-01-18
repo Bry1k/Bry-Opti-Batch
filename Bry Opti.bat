@@ -22,8 +22,10 @@ cd /d "%~dp0"
 ::0.4
 :: Updated the code/Organized
 :: Made PowerShell function run easier
-:: Added OOSU10 Configuration to ehance privacy
-
+:: Added OOSU10 Configuration to enhance privacy
+:: Added Custom Power Plan
+:: Fixed where choco wasn't recognized after install
+:: Fixed Typos
 
 
 :: Run as Admin
@@ -114,13 +116,14 @@ if exist "%chocoPath%" (
 ) else (
     echo Chocolatey isn't installed.
     echo Running install script
-    PowerShell -executionpolicy bypass -file "resources\choco install.ps1" >nul 2>&1 
+    start "" /wait powershell -exec bypass -f "resources\choco install.ps1" >nul 2>&1 
+	call "%ProgramData%\chocolatey\bin\RefreshEnv.cmd" >> log.txt
     goto choc
 )
 
 :choc
 :: Disables the Confirmation Prompt when Installing a Program through Chocolately
-choco feature enable -n=allowGlobalConfirmation >nul 2>&1 
+choco feature enable -n=allowGlobalConfirmation >> log.txt
 :: Useful for downloding applications inside a script
 :: Found out about it reading through Artanis' script, very useful
 if exist "%ProgramData%\chocolatey\lib\curl" ( goto vr 
@@ -184,6 +187,8 @@ for %%a in (
 ) do (
   call "resources\PowerRun.exe" /SW:0 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\%%a" /v "Start" /t REG_DWORD /d "3" /f
 ) 
+:: Disable GPU Energy Driver 
+call "resources\PowerRun.exe" /SW:0 Reg.exe add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\GpuEnergyDrv" /v "Start" /t REG_DWORD /d "4" /f
 cls
 
 
@@ -316,6 +321,10 @@ echo Setting System Responsiveness
 Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "SystemResponsiveness" /t REG_DWORD /d "10" /f >nul 2>&1
 
 
+:: Disable Network Throttling Index
+echo Disabling Network Throttling Index
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "NetworkThrottlingIndex" /t REG_DWORD /d "4294967295" /f >nul 2>&1
+
 ::Disable Memory Compression
 echo Disablinbg Memory Compression
 call :PS "Disable-MMAgent -MemoryCompression" 
@@ -447,9 +456,9 @@ for %%i in (
   EnhancedPowerManagementEnabled AllowIdleIrpInD3 EnableSelectiveSuspend DeviceSelectiveSuspended
 SelectiveSuspendEnabled SelectiveSuspendOn EnumerationRetryCount ExtPropDescSemaphore WaitWakeEnabled
 D3ColdSupported WdfDirectedPowerTransitionEnable EnableIdlePowerManagement IdleInWorkingState) do for /f %%a in ('Reg.exe query "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%i"^| findstr "HKEY"') do Reg.exe add "%%a" /v "%%i" /t REG_DWORD /d "0" /f 
-call :DOWNLOAD "https://github.com/Bry1k/Bry-Opti-Batch/blob/main/resources/Bry1k.pow" "%temp%\Bry1k.pow"
-powercfg /import "%temp%\Bry1k.pow" 00000000-0000-0000-0000-000000000000
-powercfg /setactive 00000000-0000-0000-0000-000000000000
+call :DOWNLOAD "https://github.com/Bry1k/Bry-Opti-Batch/raw/main/resources/Bry1k.pow" "%temp%\Bry1k.pow" 
+powercfg -import "%temp%\Bry1k.pow" 77777777-7777-7777-7777-777777777777
+powercfg -setactive 77777777-7777-7777-7777-777777777777
 powercfg /h off
 :: Disable Device Power Saving
 call :PS "Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi | ForEach-Object { $_.enable = $false; $_.psbase.put(); }"
@@ -843,12 +852,12 @@ Reg.exe add "HKCU\SOFTWARE\Microsoft\OneDrive" /v "DisablePersonalSync" /t REG_D
 Reg.exe add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 Reg.exe add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 
-goto oosu
+goto next
 
-:oosu
+:next
 cls
 echo [101;41mApply OOSU Configuration?:[0m
-echo Note: This enhances privacy inside of Windows
+echo Note: This further enhances privacy
 echo Press "Y" to apply.
 echo Press "N" to skip.
 Echo.
@@ -860,8 +869,12 @@ Echo.
 
 
 :apply
-call :DOWNLOAD "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" "%temp%\OOSU10.exe" >nul 2>&1
-start "" /wait "%temp%\OOSU10.exe" "C:\Users\Gamer\Documents\Bry-oosu10.cfg" /quiet
+call :DOWNLOAD "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" "%temp%\OOSU10.exe" >> log.txt
+call :DOWNLOAD "https://github.com/Bry1k/Bry-Opti-Batch/raw/main/resources/Bryoosu10.cfg" "%temp%\Bryoosu10.cfg"
+start "" /wait "%temp%\OOSU10.exe" "%temp%\Bryoosu10.cfg" /quiet
+
+goto smp
+
 
 :smp
 cls
