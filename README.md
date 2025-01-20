@@ -31,3 +31,4 @@ These are multiple resources were used when making the script:
 * Amit - Powersaving Features
 * [Timecard](https://github.com/djdallmann/GamingPCSetup) - His research for PC configurations and setup
 * [Revision Community](https://revi.cc/) - Learned quite a bit from the community
+* Lawliet
