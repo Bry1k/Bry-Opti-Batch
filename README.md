@@ -1,3 +1,6 @@
+[![Downloads](https://img.shields.io/github/downloads/Bry1k/Bry-Opti-Batch/total.svg)](https://github.com/Bry1k/Bry-Opti-Batch/releases)
+
+
 # About
 This a collection of various resources put into a script (with also things I would personally enable myself) that puts forth an effort to improve performance and system latency
 
