@@ -345,7 +345,7 @@ Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32Pri
 echo Disabling Devices
 %dmv% "WAN Miniport (IKEv2)"
 %dmv% "WAN Miniport (IP)"
-%dmv% "WAN Miniport (IPv6)
+%dmv% "WAN Miniport (IPv6)"
 %dmv% "WAN Miniport (L2TP)"
 %dmv% "WAN Miniport (Network Monitor)"
 %dmv% "WAN Miniport (PPPOE)"
