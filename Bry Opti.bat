@@ -27,6 +27,9 @@ cd /d "%~dp0"
 :: Fixed where choco wasn't recognized after install
 :: Added Network Configurations
 
+::0.5
+
+
 :: Run as Admin
 ::-------------------------------------
 REM  --> Check for permissions
