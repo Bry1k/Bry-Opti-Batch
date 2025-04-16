@@ -153,7 +153,7 @@ for %%i in (
 
 
 
-echo Disabling Services
+echo Configuring Services
 for %%a in (
   AxInstSV
   tzautoupdates
