@@ -1113,6 +1113,10 @@ for %%i in (EpicWebHelper.exe SocialClubHelper.exe steamwebhelper.exe Discord.ex
   Reg.exe add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%i\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
 )
 
+:: Disables HVCI/VBS
+:: https://www.tomshardware.com/how-to/disable-vbs-windows-11
+
+
 
 :: Disabling Nagele Algorithm
 :: https://www.mikemartin.co/system_guides/hardware/networking/disable_nagle_algorithm
