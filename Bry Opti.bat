@@ -30,6 +30,7 @@ cd /d "%~dp0"
 ::0.5
 :: made minimal changes
 :: added setting background apps to low priority
+:: configured mmcss
 
 :: Run as Admin
 ::-------------------------------------
@@ -318,14 +319,14 @@ Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA"
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\PcaSvc" /v "Start" /t REG_DWORD /d 4 /f >nul 2>&1
  
 
-:: System Responsiveness
-echo Setting System Responsiveness
+:: MMCSS
+echo Configuring MMCSS
 Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "SystemResponsiveness" /t REG_DWORD /d "10" /f >nul 2>&1
-
-
-:: Disable Network Throttling Index
-echo Disabling Network Throttling Index
 Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "NetworkThrottlingIndex" /t REG_DWORD /d "4294967295" /f >nul 2>&1
+:: https://github.com/djdallmann/GamingPCSetup/blob/master/CONTENT/RESEARCH/WINSERVICES/README.md#q-what-does-the-hidden-mmcss-latency-sensitive-registry-key-actually-do-what-is-the-default-value
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Latency Sensitive" /t REG_SZ /d "True" /f
+
+
 
 ::Disable Memory Compression
 echo Disablinbg Memory Compression
