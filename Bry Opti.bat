@@ -28,7 +28,8 @@ cd /d "%~dp0"
 :: Added Network Configurations
 
 ::0.5
-
+:: made minimal changes
+:: added setting background apps to low priority
 
 :: Run as Admin
 ::-------------------------------------
@@ -1105,6 +1106,11 @@ if exist "%ProgramFiles%\NVIDIA Corporation\Installer2\InstallerCore\NVI2.DLL" (
 :: BCDedits
 bcdedit /deletevalue useplatformclock
 bcdedit /set disabledynamictick Yes
+
+:: Set Background apps to below normal
+for %%i in (EpicWebHelper.exe SocialClubHelper.exe steamwebhelper.exe Discord.exe) do (
+  Reg.exe add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%i\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
+)
 
 
 :: Disabling Nagele Algorithm
