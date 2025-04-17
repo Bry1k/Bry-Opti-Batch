@@ -575,6 +575,24 @@ goto :next
 
 
 :next
+echo [101;41mDisable HVCI/VBS?:[0m
+echo note: can improve performance at the cost of a layer of security
+echo Press "Y" to apply.
+echo Press "N" to skip.
+Echo.
+set /P choice=  [101;42mY / N:[0m  
+if /I "%choice%"=="Y" goto apply
+if /I "%choice%"=="N" goto next
+Echo.
+
+:apply
+:: https://www.tomshardware.com/how-to/disable-vbs-windows-11
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d "0" /f
+
+
+
+
+:next
 cls
 echo [101;41mDisable Bluetooth Support?:[0m
 echo Press "Y" to apply.
