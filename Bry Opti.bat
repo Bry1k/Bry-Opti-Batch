@@ -31,6 +31,7 @@ cd /d "%~dp0"
 :: made minimal changes
 :: added setting background apps to low priority
 :: configured mmcss
+:: configured powersaving features
 
 :: Run as Admin
 ::-------------------------------------
@@ -465,6 +466,7 @@ powercfg -setactive 77777777-7777-7777-7777-777777777777
 powercfg /h off
 :: Disable Device Power Saving
 call :PS "Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi | ForEach-Object { $_.enable = $false; $_.psbase.put(); }"
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergyEstimationEnabled" /t REG_DWORD /d "0" /f
 
 goto next
 
