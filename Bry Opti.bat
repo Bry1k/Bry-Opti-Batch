@@ -636,7 +636,7 @@ if /I "%choice%"=="Y" goto apply
 if /I "%choice%"=="N" goto next
 
 :apply
-for /f "tokens=2 delims==" %%i in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%i
+for /f "tokens=*" %%i in ('powershell -nop -c "(Get-CimInstance -ClassName Win32_OperatingSystem).TotalVisibleMemorySize"') do set mem=%%i
 set /a ram=%mem% + 1024000
 Reg.exe add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control" /v "SvcHostSplitThresholdInKB" /t REG_DWORD /d "%ram%" /f 
 echo.
@@ -982,7 +982,7 @@ Reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement
 
 :noF
 :: Enable MSI mode on GPU
-for /f %%g in ('wmic path win32_videocontroller get PNPDeviceID ^| findstr /L "VEN_"') do (
+for /f "tokens=*" %%g in ('powershell -NoProfile -Command "(Get-WmiObject -Class Win32_VideoController | Where-Object {$_.PNPDeviceID -like '*VEN_*'} | Select-Object -ExpandProperty PNPDeviceID)"') do (
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v MSISupported /t REG_DWORD /d 0x00000001 /f 
 )
 
@@ -1139,7 +1139,7 @@ for %%i in (EpicWebHelper.exe SocialClubHelper.exe steamwebhelper.exe Discord.ex
 
 :: Disabling Nagele Algorithm
 :: https://www.mikemartin.co/system_guides/hardware/networking/disable_nagle_algorithm
-for /f %%i in ('wmic path win32_networkadapter get GUID^| findstr "{"') do (
+for /f "tokens=*" %%i in ('powershell -NoProfile -Command "(Get-CimInstance -ClassName Win32_NetworkAdapter | Select-Object -ExpandProperty GUID | Where-Object { $_ -like '*{*' })"') do (
   Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpAckFrequency" /t REG_DWORD /d "1" /f
   Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
 ) 
