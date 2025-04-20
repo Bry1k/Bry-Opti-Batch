@@ -32,6 +32,7 @@ cd /d "%~dp0"
 :: added setting background apps to low priority
 :: configured mmcss
 :: configured powersaving features
+:: added a new setting to disable VBS/HVCI
 
 :: Run as Admin
 ::-------------------------------------
@@ -577,6 +578,7 @@ goto :next
 
 
 :next
+cls
 echo [101;41mDisable HVCI/VBS?:[0m
 echo note: can improve performance at the cost of a layer of security
 echo Press "Y" to apply.
