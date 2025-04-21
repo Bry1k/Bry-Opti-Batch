@@ -35,3 +35,4 @@ These are multiple resources were used when making the script:
 * [Timecard](https://github.com/djdallmann/GamingPCSetup) - His research for PC configurations and setup
 * [Revision Community](https://revi.cc/) - Learned quite a bit from the community
 * Lawliet
+* Other online sources,forums,and members of my discord server
