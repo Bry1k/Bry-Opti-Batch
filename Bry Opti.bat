@@ -99,7 +99,7 @@ if "%PROCESSOR_ARCHITECTURE%" EQU "AMD64" (
   pause
 )
 set "GPU="
-for /F "tokens=* skip=1" %%n in ('WMIC path Win32_VideoController get Name ^| findstr "."') do (
+for /f "tokens=*" %%n in ('powershell -nop -c "Get-CimInstance -ClassName Win32_VideoController | ForEach-Object { $_.Name }"') do (
   echo GPU: %%n >> log.txt
   >nul find "NVIDIA" log.txt && (
     set GPU=NVIDIA
