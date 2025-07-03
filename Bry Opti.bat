@@ -234,12 +234,14 @@ echo Enable Dark Mode
 Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d "0" /f >nul 2>&1
 Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d "0" /f >nul 2>&1
 
-:: CRSS High Priority
-echo Setting CRSS Priority
-for %%a in (csrss) do (
-Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%a.exe\PerfOptions" /v CpuPriorityClass /t REG_DWORD /d "3" /f >nul 2>&1
-Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%a.exe\PerfOptions" /v IoPriority /t REG_DWORD /d "3" /f >nul 2>&1 
-)
+
+:: CSRSS priority is high default (https://learn.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities)
+:: can be checked with wmic process where name="csrss.exe" get /format:list | findstr Priority
+:: echo Setting CRSS Priority
+:: for %%a in (csrss) do (
+:: Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%a.exe\PerfOptions" /v CpuPriorityClass /t REG_DWORD /d "3" /f >nul 2>&1
+:: Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%a.exe\PerfOptions" /v IoPriority /t REG_DWORD /d "3" /f >nul 2>&1 
+:: )
 
 :: Lock Screen
 :: Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableLogonBackgroundImage" /t REG_DWORD /d "1" /f 
