@@ -34,6 +34,8 @@ cd /d "%~dp0"
 :: configured powersaving features
 :: added a new setting to disable VBS/HVCI
 
+::0.6
+
 :: Run as Admin
 ::-------------------------------------
 REM  --> Check for permissions
