@@ -779,7 +779,7 @@ if /I "%choice%"=="N" goto next
 
 :apply
 :: Default Apps
-call :DOWNLOAD https://github.com/valleyofdoom/AppxPackagesManager/releases/download/1.4.3/AppxPackagesManager.exe "%UserProfile%\Documents\AppxPackagesManager.exe" >nul 2>&1
+call :DOWNLOAD https://github.com/valleyofdoom/AppxPackagesManager/releases/download/1.4.4/AppxPackagesManager.exe "%UserProfile%\Documents\AppxPackagesManager.exe" >nul 2>&1
 call "%UserProfile%\Documents\AppxPackagesManager.exe" >nul 2>&1
 :: Remove Cortana
 takeown /f "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy" /r /a
@@ -1181,8 +1181,8 @@ if "%choice%"=="N" goto :end
 :creds
 cls
 call:MSGBOX "Artanis - Some Windows Configuration as well as use of Curl (Learning from his script and inspiration)\nZusier - OneDrive, Some Windows Configuration  \nAMIT - Powersaving Features\nTimecard - His research about PC configuration and setup\nStack Overflow among with other forums - Coding Help/Troubleshooting.\n\n                                                             " vbInformation "Credits"
+exit
 
-goto :end
 
 
 :end
