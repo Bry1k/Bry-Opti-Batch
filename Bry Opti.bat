@@ -818,6 +818,9 @@ if exist "C:\Program Files (x86)\Microsoft\Edge" do (
   rd /s /q "%LocalAppData%\Microsoft\Edge"
   rd /s /q "C:\Program Files (x86)\Microsoft\Edge"
   rd /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
+  rd /s /q "%UserProfile%\Desktop\Microsoft Edge.lnk"
+  rd /s /q "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
+  
   :: Deleting Shortcuts
   rd /s /q "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
   rd /s /q "%UserProfile%\Desktop\Microsoft Edge.lnk"
