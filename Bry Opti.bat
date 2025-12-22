@@ -820,7 +820,7 @@ if exist "C:\Program Files (x86)\Microsoft\Edge" do (
   rd /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
   rd /s /q "%UserProfile%\Desktop\Microsoft Edge.lnk"
   rd /s /q "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
-  
+
   :: Deleting Shortcuts
   rd /s /q "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
   rd /s /q "%UserProfile%\Desktop\Microsoft Edge.lnk"
@@ -888,22 +888,22 @@ goto next
 
 :next
 cls
-echo [101;41mApply OOSU Configuration?:[0m
-echo Note: This further enhances privacy
-echo Press "Y" to apply.
-echo Press "N" to skip.
-Echo.
-SET /P choice=  [101;42mY / N:[0m  
-IF /I "%choice%"=="Y" goto apply
-IF /I "%choice%"=="N" goto next
+:: echo [101;41mApply OOSU Configuration?:[0m
+::echo Note: This further enhances privacy
+::echo Press "Y" to apply.
+::echo Press "N" to skip.
+::Echo.
+::SET /P choice=  [101;42mY / N:[0m  
+::IF /I "%choice%"=="Y" goto apply
+::IF /I "%choice%"=="N" goto next
 Echo.
 
 
 
 :apply
-call :DOWNLOAD "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" "%temp%\OOSU10.exe" >> log.txt
-call :DOWNLOAD "https://github.com/Bry1k/Bry-Opti-Batch/raw/main/resources/Bryoosu10.cfg" "%temp%\Bryoosu10.cfg"
-start "" /wait "%temp%\OOSU10.exe" "%temp%\Bryoosu10.cfg" /quiet
+::call :DOWNLOAD "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" "%temp%\OOSU10.exe" >> log.txt
+::call :DOWNLOAD "https://github.com/Bry1k/Bry-Opti-Batch/raw/main/resources/Bryoosu10.cfg" "%temp%\Bryoosu10.cfg"
+::start "" /wait "%temp%\OOSU10.exe" "%temp%\Bryoosu10.cfg" /quiet
 
 goto next
 
