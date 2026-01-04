@@ -481,9 +481,31 @@ for %%i in (
   EnhancedPowerManagementEnabled AllowIdleIrpInD3 EnableSelectiveSuspend DeviceSelectiveSuspended
 SelectiveSuspendEnabled SelectiveSuspendOn EnumerationRetryCount ExtPropDescSemaphore WaitWakeEnabled
 D3ColdSupported WdfDirectedPowerTransitionEnable EnableIdlePowerManagement IdleInWorkingState) do for /f %%a in ('Reg query "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%i"^| findstr "HKEY"') do Reg add "%%a" /v "%%i" /t REG_DWORD /d "0" /f 
-call :DOWNLOAD "https://github.com/Bry1k/Bry-Opti-Batch/raw/main/resources/Bry1k.pow" "%temp%\Bry1k.pow" 
-powercfg -import "%temp%\Bry1k.pow" 77777777-7777-7777-7777-777777777777
-powercfg -setactive 77777777-7777-7777-7777-777777777777
+powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 11111111-1111-1111-1111-111111111111 >NUL 
+powercfg /setactive 11111111-1111-1111-1111-111111111111
+powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+powercfg -delete 381b4222-f694-41f0-9685-ff5bb260df2e
+powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a
+powercfg -changename 11111111-1111-1111-1111-111111111111 "Bry1k's Plan" "Best Plan?"
+powercfg -setacvalueindex scheme_current sub_processor PERFINCPOL 2 >NUL 2>nul
+powercfg -setacvalueindex scheme_current sub_processor PERFDECPOL 1 >NUL 2>nul
+powercfg -setacvalueindex scheme_current sub_processor PERFINCTHRESHOLD 10 >NUL 2>nul
+powercfg -setacvalueindex scheme_current sub_processor PERFDECTHRESHOLD 8 >NUL 2>nul
+wevtutil sl Microsoft-Windows-SleepStudy/Diagnostic /e:false >nul 2>&1
+wevtutil sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /e:false >nul 2>&1
+wevtutil sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false >nul 2>&1
+::USB 3 Link Power Management: OFF 
+powercfg -setacvalueindex scheme_current 2a737441-1930-4402-8d77-b2bebba308a3 d4e98f31-5ffe-4ce1-be31-1b38b384c009 0 >nul
+::USB selective suspend setting: OFF
+powercfg -setacvalueindex scheme_current 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0 >nul
+::Link State Power Management: OFF
+powercfg -setacvalueindex scheme_current SUB_PCIEXPRESS ASPM 0 >nul
+::Device Idle Policy: Performance
+powercfg -setacvalueindex scheme_current sub_none DEVICEIDLE 0 >nul
+::Disable Sleep States
+powercfg -setacvalueindex scheme_current SUB_SLEEP AWAYMODE 0 >nul
+powercfg -setacvalueindex scheme_current SUB_SLEEP ALLOWSTANDBY 0 >nul
+powercfg -setacvalueindex scheme_current SUB_SLEEP HYBRIDSLEEP 0 >nul
 powercfg /h off
 :: Disable Device Power Saving
 call :PS "Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi | ForEach-Object { $_.enable = $false; $_.psbase.put(); }"
