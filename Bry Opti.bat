@@ -381,7 +381,7 @@ echo Disabling Devices
 
 :: Gamebar Presence Writer
 echo Disabling Gamebar Presence Writer
-call "resources\PowerRun.exe" /SW:0 Reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
+call "resources\PowerRun.exe" /SW:0 Reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
 
 :: Windows Explorer
 echo Configuring Windows Explorer 
