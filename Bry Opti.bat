@@ -392,25 +392,6 @@ Reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "D
 Reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoInstrumentation" /t REG_DWORD /d "1" /f >nul 2>&1
 cls
 
-echo [101;41mWould you like to Improve Desktop Wallpaper:[0m
-echo note: May need to set a desktop wallpaper again for it to take affect
-echo Press "Y" to apply.
-echo Press "N" to skip.
-echo.
-set /P choice=  [101;42mY / N:[0m  
-if /I "%choice%"=="Y" goto apply
-if /I "%choice%"=="N" goto next
-echo.
-:apply
-Reg add "HKCU\Control Panel\Desktop" /v "JPEGImportQuality" /t "REG_DWORD" /d "100" /f
-echo.
-
-
-goto :next
-
-
-:next 
-cls
 echo [101;41mDisable Xbox Services?:[0m
 echo Press "Y" to apply.
 echo Press "N" to skip.
@@ -1338,6 +1319,7 @@ curl.exe -sS -L -o %2 %1 >nul 2>&1
 
 ::UNZIP
 :: powershell "Expand-Archive -Path %1 -DestinationPath %2"
+
 
 
 
