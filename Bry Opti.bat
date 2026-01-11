@@ -336,7 +336,7 @@ Reg add "HKLM\SOFTWARE\Policies\Microsoft\Biometrics" /v "Enabled" /t REG_DWORD 
 Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WbioSrvc" /v "Start" /t REG_DWORD /d "4" /f >nul 2>&1
 
 :: set .ps1 files to open with PowerShell by default
-echo Set powershell files top open with powershell by default
+echo Set powershell files to open with powershell by default
 Reg add "HKCR\Microsoft.PowerShellScript.1\Shell\Open\Command" /ve /t REG_SZ /d "\"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe\" -File \"%%1\"
 
 :: Program Compatibility Assistant
@@ -1319,6 +1319,7 @@ curl.exe -sS -L -o %2 %1 >nul 2>&1
 
 ::UNZIP
 :: powershell "Expand-Archive -Path %1 -DestinationPath %2"
+
 
 
 
