@@ -1053,6 +1053,12 @@ for /f %%a in ('Reg query "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972
     Reg add %%a /v "*WakeOnMagicPacket" /t Reg_SZ /d "0" /f >> log.txt
     Reg add %%a /v "*WakeOnPattern" /t Reg_SZ /d "0" /f >> log.txt
 )
+:: Disabling Nagele Algorithm
+:: https://www.mikemartin.co/system_guides/hardware/networking/disable_nagle_algorithm
+for /f "tokens=*" %%i in ('powershell -NoProfile -Command "(Get-CimInstance -ClassName Win32_NetworkAdapter | Select-Object -ExpandProperty GUID | Where-Object { $_ -like '*{*' })"') do (
+  Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpAckFrequency" /t REG_DWORD /d "1" /f
+  Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
+) 
 
 
 goto smp
@@ -1252,17 +1258,6 @@ for %%i in (EpicWebHelper.exe SocialClubHelper.exe steamwebhelper.exe Discord.ex
 
 
 
-
-:: Disabling Nagele Algorithm
-:: https://www.mikemartin.co/system_guides/hardware/networking/disable_nagle_algorithm
-for /f "tokens=*" %%i in ('powershell -NoProfile -Command "(Get-CimInstance -ClassName Win32_NetworkAdapter | Select-Object -ExpandProperty GUID | Where-Object { $_ -like '*{*' })"') do (
-  Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpAckFrequency" /t REG_DWORD /d "1" /f
-  Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
-) 
-
-
-
-
 :: Google Chrome Services
 if exist "C:\Program Files\Google\Chrome" do (
   sc stop "gupdate" & sc config "gupdate" start=disabled
@@ -1319,6 +1314,7 @@ curl.exe -sS -L -o %2 %1 >nul 2>&1
 
 ::UNZIP
 :: powershell "Expand-Archive -Path %1 -DestinationPath %2"
+
 
 
 
