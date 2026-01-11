@@ -872,10 +872,10 @@ if exist "C:\Program Files (x86)\Microsoft\Edge" do (
   rd /s /q "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
 
   :: Deleting Shortcuts
-  rd /s /q "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
-  rd /s /q "%UserProfile%\Desktop\Microsoft Edge.lnk"
-  rd /s /q "%Appdata%\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Microsoft Edge.lnk"
-  rd /s /q "%Appdata%\Roaming\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk"
+  del /q /f "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
+  del /q /f "%UserProfile%\Desktop\Microsoft Edge.lnk"
+  del /q /f "%Appdata%\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Microsoft Edge.lnk"
+  del /q /f "%Appdata%\Roaming\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk"
   if exist "C:\Program Files (x86)\Microsoft\EdgeCore" do (
     rd /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
     if exist "C:\Program Files (x86)\Microsoft\EdgeWebView" do (
@@ -1334,5 +1334,6 @@ curl.exe -sS -L -o %2 %1 >nul 2>&1
 
 ::UNZIP
 :: powershell "Expand-Archive -Path %1 -DestinationPath %2"
+
 
 
