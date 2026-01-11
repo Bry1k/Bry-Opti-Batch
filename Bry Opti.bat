@@ -1285,8 +1285,8 @@ echo.
 echo.
 echo Would you lik to view the Credits? Y/N
 set /P choice=
-if "%choice%"=="Y" goto :creds
-if "%choice%"=="N" goto :end
+if /I "%choice%"=="Y" goto :creds
+if /I "%choice%"=="N" goto :end
 
 
 :creds
@@ -1319,6 +1319,7 @@ curl.exe -sS -L -o %2 %1 >nul 2>&1
 
 ::UNZIP
 :: powershell "Expand-Archive -Path %1 -DestinationPath %2"
+
 
 
 
