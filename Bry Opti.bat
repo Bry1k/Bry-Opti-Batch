@@ -35,6 +35,10 @@ cd /d "%~dp0"
 :: added a new setting to disable VBS/HVCI
 
 ::0.6
+:: revamped power plan settings
+:: changed automatic updates option to disable updates
+:: removed a few tweaks
+:: added minor configurations
 
 :: Run as Admin
 ::-------------------------------------
@@ -1334,6 +1338,7 @@ curl.exe -sS -L -o %2 %1 >nul 2>&1
 
 ::UNZIP
 :: powershell "Expand-Archive -Path %1 -DestinationPath %2"
+
 
 
 
