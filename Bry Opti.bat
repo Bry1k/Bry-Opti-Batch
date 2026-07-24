@@ -852,40 +852,7 @@ if /I "%choice%"=="N" goto next
 
 :apply
 echo Please be patient, this may take a moment
-:: Finding and deleting any scheduled tasks that have "Edge" in the name
-for /f "tokens=1 delims=," %%x in ('schtasks /query /fo csv ^| find "MicrosoftEdge"') do schtasks /Delete /TN %%x /F
-sc config <service_name> start= disabled
-if exist "C:\Program Files (x86)\Microsoft\Edge" do (
-  :: Kill Microsoft Edge
-  Taskkill /f /im msedge.exe
-  :: Delete Related Services
-  sc stop edgeupdatem
-  sc stop edgeupdate
-  sc stop MicrosoftEdgeElevationService
-  sc delete edgeupdatem
-  sc delete edgeupdate
-  sc delete MicrosoftEdgeElevationService
-  :: Delete Directories
-  rd /s /q "%LocalAppData%\Microsoft\WindowsApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe"
-  rd /s /q "%LocalAppData%\Microsoft\Edge"
-  rd /s /q "C:\Program Files (x86)\Microsoft\Edge"
-  rd /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
-  rd /s /q "%UserProfile%\Desktop\Microsoft Edge.lnk"
-  rd /s /q "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
-
-  :: Deleting Shortcuts
-  del /q /f "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
-  del /q /f "%UserProfile%\Desktop\Microsoft Edge.lnk"
-  del /q /f "%Appdata%\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Microsoft Edge.lnk"
-  del /q /f "%Appdata%\Roaming\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk"
-  if exist "C:\Program Files (x86)\Microsoft\EdgeCore" do (
-    rd /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
-    if exist "C:\Program Files (x86)\Microsoft\EdgeWebView" do (
-      rd /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
-    )
-  )
-
-)
+p
 
 goto :next
 
