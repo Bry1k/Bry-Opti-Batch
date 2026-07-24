@@ -40,6 +40,9 @@ cd /d "%~dp0"
 :: removed a few tweaks
 :: added minor configurations
 
+
+:: 0.7
+
 :: Run as Admin
 ::-------------------------------------
 REM  --> Check for permissions
