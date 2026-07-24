@@ -138,14 +138,6 @@ if exist "%chocoPath%" (
 :choc
 :: Disables the Confirmation Prompt when Installing a Program through Chocolately
 choco feature enable -n=allowGlobalConfirmation >> log.txt
-:: Useful for downloding applications inside a script
-:: Found out about it reading through Artanis' script, very useful
-if exist "%ProgramData%\chocolatey\lib\curl" ( goto vr 
-) else (
- echo Installing Curl 
- choco install curl >> log.txt
-   goto vr
-)
 
 :vr
 :: Install Visual Runtimes
