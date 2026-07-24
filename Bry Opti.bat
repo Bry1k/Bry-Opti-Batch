@@ -852,7 +852,9 @@ if /I "%choice%"=="N" goto next
 
 :apply
 echo Please be patient, this may take a moment
-p
+:: credits to https://github.com/he3als/EdgeRemover
+call :DOWNLOAD https://github.com/he3als/EdgeRemover/releases/download/v1.9.5/RemoveEdge.ps1 "%temp%\removeEdge.ps1" >nul 2>&1
+call :PS "%temp%\RemoveEdge.ps1" -UninstallEdge -RemoveEdgeData -KeepAppX -NonInteractive >nul 2>&1
 
 goto :next
 
