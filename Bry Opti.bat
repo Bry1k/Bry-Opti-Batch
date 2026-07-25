@@ -1021,15 +1021,18 @@ goto smp
 
 :smp
 cls
-echo [101;41mDo you want to disable Spectre and Meltdown protections?:[0m
-echo Press "Y" to apply.
-echo Press "N" to skip.
-set /p choice=[101;42mY / N:[0m  
-if /I "%choice%"=="Y" goto :Ys
-if /I "%choice%"=="N" goto :noM
+if /I "%cpu%"=="Intel" (
+  echo [101;41mDo you want to disable Spectre and Meltdown protections?:[0m
+  echo Press "Y" to apply.
+  echo Press "N" to skip.
+  set /p choice=[101;42mY / N:[0m  
+  if /I "%choice%"=="Y" goto Ys
+  if /I "%choice%"=="N" goto noM
+) else (
+  goto noM
+)
 
-
-:Ys
+Ys
 Reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "EnableCfg" /t REG_DWORD /d "0" /f >nul 2>&1
 Reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettings" /t REG_DWORD /d "1" /f >nul 2>&1
 Reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverride" /t REG_DWORD /d "3" /f >nul 2>&1
