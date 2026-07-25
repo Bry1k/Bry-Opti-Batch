@@ -104,6 +104,18 @@ for /f "tokens=*" %%n in ('powershell -nop -c "Get-CimInstance -ClassName Win32_
 )
 echo GPU: %GPU%
 
+echo %PROCESSOR_IDENTIFIER% | findstr /i "AMD" >nul
+if %errorlevel% equ 0 (
+    set "cpu=AMD"
+)
+
+echo %PROCESSOR_IDENTIFIER% | findstr /i "Intel" >nul
+if %errorlevel% equ 0 (
+    set "cpu=Intel"
+)
+echo CPU: %cpu% >> log.txt
+
+
 
 goto checkchoc
 
