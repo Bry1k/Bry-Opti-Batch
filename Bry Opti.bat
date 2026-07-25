@@ -221,6 +221,7 @@ set "LOCALSTATE=%LOCALAPPDATA%\Packages\Microsoft.Windows.StartMenuExperienceHos
 
 if exist "%LOCALSTATE%\start.bin" del /f /q "%LOCALSTATE%\start.bin" >nul 2>&1
 if exist "%LOCALSTATE%\start2.bin" del /f /q "%LOCALSTATE%\start2.bin" >nul 2>&1
+start explorer.exe >nul 2>&1
 
 :: Privacy/Disabling Telemetry
 echo Disabling Telemetry
@@ -634,85 +635,52 @@ taskkill /f /im MsMpEng.exe
 taskkill /f /im msiexec.exe
 taskkill /f /im smartscreen.exe
 
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\wdboot" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\wdfilter" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\wdnisdrv" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\mssecflt" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WdNisSvc" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Sense" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t REG_DWORD /d "4" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableRoutinelyTakingAction" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ServiceKeepAlive" /t REG_DWORD /d "0" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableBehaviorMonitoring" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableIOAVProtection" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableOnAccessProtection" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableRealtimeMonitoring" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" /v "DisableEnhancedNotifications" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v "DisableNotifications" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoToastApplicationNotification" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoToastApplicationNotificationOnLockScreen" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d "1" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableSmartScreen" /t REG_DWORD /d "0" /f
+"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v "VerifiedAndReputablePolicyState" /t REG_DWORD /d "0" /f
 
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Microsoft Antimalware\Real-Time Protection" /v "DisableScanOnRealtimeEnable" /t REG_DWORD /d 1 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Microsoft Antimalware\Real-Time Protection" /v "DisableOnAccessProtection" /t REG_DWORD /d 1 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableScanOnRealtimeEnable" /t REG_DWORD /d 1 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableBehaviorMonitoring" /t REG_DWORD /d 1 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WTDS\Components" /v "ServiceEnabled" /t REG_DWORD /d 0 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKCU\SOFTWARE\Microsoft\Edge" /v "SmartScreenEnabled" /t REG_SZ /d "0" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost" /v "EnableWebContentEvaluation" /t REG_DWORD /d 0 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "SmartScreenEnabled" /t REG_SZ /d "Off" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SubmitSamplesConsent" /t REG_DWORD /d 0 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SpyNetReporting" /t REG_DWORD /d 0 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d 0 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t REG_DWORD /d 0 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d 0 /f
+del /f /q "%windir%\System32\smartscreen.exe" 2>nul
+del /f /q "%windir%\System32\smartscreenps.dll" 2>nul
+del /f /q "%windir%\System32\SecurityHealthSystray.exe" 2>nul
+del /f /q "%windir%\System32\SecurityHealthService.exe" 2>nul
+del /f /q "%windir%\System32\SecurityHealthAgent.dll" 2>nul
+del /f /q "%windir%\System32\SecurityHealthHost.exe" 2>nul
+del /f /q "%windir%\System32\SecurityHealthSSO.dll" 2>nul
+del /f /q "%windir%\System32\SecurityHealthCore.dll" 2>nul
+del /f /q "%windir%\System32\SecurityHealthProxyStub.dll" 2>nul
+del /f /q "%windir%\System32\SecurityHealthUdk.dll" 2>nul
+del /f /q "%windir%\System32\drivers\WdNisDrv.sys" 2>nul
 
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Sense" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\MsSecCore" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WdFilter" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WdBoot" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\WdNisSvc" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\MsSecWfp" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\MsSecFlt" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\wtd" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\webthreatdefusersvc" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\webthreatdefsvc" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\MDCoreSvc" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\SgrmAgent" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\SgrmBroker" /v "Start" /t REG_DWORD /d 4 /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Services\luafv" /v "Start" /t REG_DWORD /d 4 /f >nul 2>&1
+rd /s /q "%ProgramW6432%\Windows Defender" 2>nul
+rd /s /q "%ProgramData%\Microsoft\Windows Defender" 2>nul
+rd /s /q "%ProgramFiles(x86)%\Windows Defender" 2>nul
+rd /s /q "%ProgramW6432%\Windows Defender Advanced Threat Protection" 2>nul
+rd /s /q "%SystemDrive%\ProgramData\Microsoft\Windows Defender Advanced Threat Protection" 2>nul
 
-
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "WindowsDefender" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\UpdateHealthTools" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\rempl" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Microsoft\CloudManagedUpdate" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Classes\*\ShellEx\ContextMenuHandlers\EPP" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Classes\Drive\ShellEx\ContextMenuHandlers\EPP" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Classes\Directory\ShellEx\ContextMenuHandlers\EPP" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKLM\SOFTWARE\Microsoft\Windows Defender" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKCR\Folder\shell\WindowsDefender" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKCR\DesktopBackground\Shell\WindowsSecurity" /f
-"resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg delete "HKCR\Folder\shell\WindowsDefender\Command" /f
-
-
-del /f /q "%windir%\System32\SecurityHealthSystray.exe"
-del /f /q "%windir%\System32\SecurityHealthService.exe"
-del /f /q "%windir%\System32\SecurityHealthAgent.dll"
-del /f /q "%windir%\System32\SecurityHealthHost.exe"
-del /f /q "%windir%\System32\SecurityHealthSSO.dll"
-del /f /q "%windir%\System32\SecurityHealthCore.dll"
-del /f /q "%windir%\System32\SecurityHealthProxyStub.dll"
-del /f /q "%windir%\System32\SecurityHealthUdk.dll"
-rmdir /s /q "%ProgramW6432%\Windows Defender Advanced Threat Protection"
-rmdir /s /q "%ProgramW6432%\Windows Defender"
-rmdir /s /q "%PROGRAMFILES(x86)%\Windows Defender"
-rmdir /s /q "%ProgramData%\Microsoft\Windows Defender"
-del /f /q "%windir%\System32\drivers\WdNisDrv.sys"
-rmdir /s /q "%SystemDrive%\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
-rmdir /s /q "%ProgramW6432%\Microsoft Update Health Tools"
-rmdir /s /q "%ProgramW6432%\PCHealthCheck"
-del /f /q "%windir%\System32\smartscreen.exe"
-del /f /q "%windir%\System32\smartscreenps.dll"
-
-schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /f
-schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /f
-schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /f
-Reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d 0 /f
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "Get-AppxPackage -AllUsers '*SecHealthUI*' | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue; " ^
-  "Get-AppxPackage -AllUsers 'Microsoft.Windows.Apprep.ChxApp*' | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue; " ^
-  "Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -like '*SecHealthUI*' -or $_.DisplayName -like 'Microsoft.Windows.Apprep.ChxApp*' } | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue" >nul 2>&1
-
-echo.
-
+schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /f 2>nul
+schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /f 2>nul
+schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /f 2>nul
+schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Verification" /f 2>nul
 
 
 
