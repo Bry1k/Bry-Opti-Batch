@@ -1015,13 +1015,6 @@ for /f %%a in ('Reg query "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972
     Reg add %%a /v "*WakeOnMagicPacket" /t REG_SZ /d "0" /f >> log.txt
     Reg add %%a /v "*WakeOnPattern" /t REG_SZ /d "0" /f >> log.txt
 )
-:: Disabling Nagele Algorithm
-:: https://www.mikemartin.co/system_guides/hardware/networking/disable_nagle_algorithm
-for /f "tokens=*" %%i in ('powershell -NoProfile -Command "(Get-CimInstance -ClassName Win32_NetworkAdapter | Select-Object -ExpandProperty GUID | Where-Object { $_ -like '*{*' })"') do (
-  Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpAckFrequency" /t REG_DWORD /d "1" /f
-  Reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\%%i" /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
-) 
-
 
 goto smp
 
