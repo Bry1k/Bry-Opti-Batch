@@ -671,24 +671,6 @@ taskkill /f /im smartscreen.exe
 "resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableSmartScreen" /t REG_DWORD /d "0" /f
 "resources\MinSudo.exe" --TrustedInstaller --NoLogo Reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v "VerifiedAndReputablePolicyState" /t REG_DWORD /d "0" /f
 
-del /f /q "%windir%\System32\smartscreen.exe" 2>nul
-del /f /q "%windir%\System32\smartscreenps.dll" 2>nul
-del /f /q "%windir%\System32\SecurityHealthSystray.exe" 2>nul
-del /f /q "%windir%\System32\SecurityHealthService.exe" 2>nul
-del /f /q "%windir%\System32\SecurityHealthAgent.dll" 2>nul
-del /f /q "%windir%\System32\SecurityHealthHost.exe" 2>nul
-del /f /q "%windir%\System32\SecurityHealthSSO.dll" 2>nul
-del /f /q "%windir%\System32\SecurityHealthCore.dll" 2>nul
-del /f /q "%windir%\System32\SecurityHealthProxyStub.dll" 2>nul
-del /f /q "%windir%\System32\SecurityHealthUdk.dll" 2>nul
-del /f /q "%windir%\System32\drivers\WdNisDrv.sys" 2>nul
-
-rd /s /q "%ProgramW6432%\Windows Defender" 2>nul
-rd /s /q "%ProgramData%\Microsoft\Windows Defender" 2>nul
-rd /s /q "%ProgramFiles(x86)%\Windows Defender" 2>nul
-rd /s /q "%ProgramW6432%\Windows Defender Advanced Threat Protection" 2>nul
-rd /s /q "%SystemDrive%\ProgramData\Microsoft\Windows Defender Advanced Threat Protection" 2>nul
-
 schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /f 2>nul
 schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /f 2>nul
 schtasks /delete /tn "\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /f 2>nul
