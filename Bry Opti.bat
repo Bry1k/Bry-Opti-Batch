@@ -225,18 +225,6 @@ Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "HideRecommendedS
 Reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Education" /v "IsEducationEnvironment" /t REG_DWORD /d 1 /f >nul 2>&1
 Reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Start" /v "HideRecommendedSection" /t REG_DWORD /d 1 /f >nul 2>&1
 
-
-taskkill /F /IM StartMenuExperienceHost.exe >nul 2>&1
-:: Remove CloudStore Cache registry key
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount" /f >nul 2>&1
-
-:: Set path and remove local state files
-set "LOCALSTATE=%LOCALAPPDATA%\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState"
-
-if exist "%LOCALSTATE%\start.bin" del /f /q "%LOCALSTATE%\start.bin" >nul 2>&1
-if exist "%LOCALSTATE%\start2.bin" del /f /q "%LOCALSTATE%\start2.bin" >nul 2>&1
-start explorer.exe >nul 2>&1
-
 :: Privacy/Disabling Telemetry
 echo Disabling Telemetry
 Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "0" /f >nul 2>&1
