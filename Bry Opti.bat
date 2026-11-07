@@ -997,24 +997,23 @@ netsh interface ipv4 set subinterface “Ethernet” mtu=1500 store=persistent
 powershell Set-NetOffloadGlobalSetting -ReceiveSideScaling enabled
 Reg add "HKLM\SYSTEM\ControlSet001\Services\Tcpip\Parameters" /v "DefaultTTL" /t REG_SZ /d "64" /f
 for /f %%a in ('Reg query "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}" /v "*SpeedDuplex" /s ^| findstr "HKEY"') do (
-    Reg add %%a /v "AutoDisableGigabit" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "AutoPowerSaveMode" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "AdvancedEEE" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "AutoPowerSaveModeEnabled" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "*EEE" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "EnableGreenEthernet" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "EnablePME" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "GigaLite" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "*JumboPacket" /t REG_SZ /d "0" /f >> log.txt  
-    Reg add %%a /v "*LsoV2IPv4" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "*LsoV2IPv6" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "PowerSavingMode" /t REG_SZ /d "0" /f >> log.txt  
-    Reg add %%a /v "PowerDownPll" /t REG_SZ /d "0" /f >> log.txt 
-    Reg add %%a /v "*PMARPOffload" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "ULPMode" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "*WakeOnMagicPacket" /t REG_SZ /d "0" /f >> log.txt
-    Reg add %%a /v "*WakeOnPattern" /t REG_SZ /d "0" /f >> log.txt
-)
+    Reg add %%a /v "AutoDisableGigabit" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "AutoPowerSaveMode" /t REG_SZ /d "0" /f
+    Reg add %%a /v "AdvancedEEE" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "AutoPowerSaveModeEnabled" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "*EEE" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "EnableGreenEthernet" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "EnablePME" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "GigaLite" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "*JumboPacket" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "*LsoV2IPv4" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "*LsoV2IPv6" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "PowerSavingMode" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "PowerDownPll" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "*PMARPOffload" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "ULPMode" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "*WakeOnMagicPacket" /t REG_SZ /d "0" /f 
+    Reg add %%a /v "*WakeOnPattern" /t REG_SZ /d "0" /f 
 
 goto smp
 
