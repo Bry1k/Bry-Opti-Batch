@@ -42,6 +42,8 @@ cd /d "%~dp0"
 
 
 :: 0.7
+:: removed a few options (discord and smartcard)
+:: added a cpu detection function to make spectre and meltdown option only show for intel users
 
 
 
